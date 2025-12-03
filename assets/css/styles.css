@@ -1,0 +1,143 @@
+/* -------------------------------------
+   ESTILOS GENERALES
+------------------------------------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: #f7f7f7;
+    color: #333;
+    padding: 20px;
+}
+
+/* Contenedor central */
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+/* Títulos */
+h1, h2, h3 {
+    color: #2ecc71;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* -------------------------------------
+   BOTONES
+------------------------------------- */
+
+button, .btn {
+    background: #2ecc71;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+button:hover, .btn:hover {
+    background: #27ae60;
+}
+
+/* Botón Google (opcional con icono) */
+.btn-google {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* -------------------------------------
+   NAV / MENU
+------------------------------------- */
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 0;
+}
+
+nav a, nav button {
+    text-decoration: none;
+    background: #fff;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 2px solid #2ecc71;
+    text-align: center;
+    color: #2ecc71;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+nav a:hover, nav button:hover {
+    background: #2ecc71;
+    color: white;
+}
+
+/* -------------------------------------
+   FORMULARIOS
+------------------------------------- */
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 8px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1.5px solid #ccc;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #2ecc71;
+    box-shadow: 0 0 4px rgba(46, 204, 113, 0.4);
+}
+
+/* -------------------------------------
+   TARJETAS DE CONTENIDO
+------------------------------------- */
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    margin-bottom: 8px;
+    color: #2ecc71;
+}
+
+/* -------------------------------------
+   RESPONSIVE
+------------------------------------- */
+
+@media (max-width: 600px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    .container {
+        padding: 20px;
+    }
+}

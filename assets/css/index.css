@@ -1,0 +1,471 @@
+html {
+    overscroll-behavior: none;
+    /* Prevent scroll bounce */
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f5f5f5;
+    padding-top: 80px;
+    overscroll-behavior: none;
+}
+
+/* NAVBAR */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+
+    /* Unique Gradient Border */
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(to right, #27ae60, #2ecc71, #f1c40f) 1;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-logo {
+    height: 40px;
+    width: auto;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #27ae60;
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s;
+}
+
+nav a:hover,
+nav a.active {
+    color: #27ae60;
+}
+
+/* Hover Animation (Underline) */
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #27ae60;
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after,
+nav a.active::after {
+    width: 100%;
+}
+
+.btn-login {
+    background: #27ae60;
+    color: white !important;
+    padding: 8px 15px;
+    border-radius: 6px;
+}
+
+.user-greeting {
+    margin-left: 15px;
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.btn-logout {
+    margin-left: 15px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* HERO (Replaced by Carousel) */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.overlay h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.overlay p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.btn-cta {
+    padding: 12px 30px;
+    background: #27ae60;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    transition: background 0.3s;
+}
+
+.btn-cta:hover {
+    background: #2ecc71;
+}
+
+/* Arrows removed as per request */
+.prev,
+.next {
+    display: none;
+}
+
+/* INFO CARDS */
+.info-cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 60px 20px;
+    background: white;
+}
+
+.card {
+    background: #f9f9f9;
+    padding: 30px;
+    border-radius: 12px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card h3 {
+    color: #27ae60;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+/* ABOUT SECTION */
+.about-section {
+    padding: 80px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.about-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.about-section h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.about-section .lead {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 50px;
+    line-height: 1.6;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    text-align: left;
+}
+
+.about-item {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.about-item h3 {
+    color: #27ae60;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.about-item p,
+.about-item li {
+    color: #666;
+    line-height: 1.6;
+}
+
+.about-item ul {
+    padding-left: 20px;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.tech-tags span {
+    background: #e8f5e9;
+    color: #27ae60;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+/* STATS SECTION */
+.stats-section {
+    background: #27ae60;
+    color: white;
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.stat-item h2 {
+    font-size: 3rem;
+    margin: 0;
+    font-weight: 800;
+}
+
+.stat-item p {
+    font-size: 1.2rem;
+    margin-top: 5px;
+    opacity: 0.9;
+}
+
+/* HOW IT WORKS */
+.how-it-works {
+    padding: 80px 20px;
+    background: white;
+    text-align: center;
+}
+
+.how-it-works h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 50px;
+}
+
+.steps-grid {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.step {
+    width: 250px;
+}
+
+.step-icon {
+    font-size: 3rem;
+    color: #27ae60;
+    margin-bottom: 20px;
+    background: #e8f5e9;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+}
+
+.step h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.step p {
+    color: #666;
+}
+
+/* CTA SECTION with Background Image */
+.cta-section {
+    position: relative;
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+    background-size: cover;
+    z-index: -2;
+}
+
+.cta-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* Dark overlay */
+    z-index: -1;
+}
+
+.cta-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-cta-large {
+    padding: 15px 40px;
+    background: #27ae60;
+    color: white;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 30px;
+    transition: transform 0.2s;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+}
+
+.btn-cta-large:hover {
+    transform: scale(1.05);
+    background: #2ecc71;
+}
+
+/* FOOTER - More compact and discrete */
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-logo {
+    font-size: 18px;
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 20px;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.social-icons a svg {
+    fill: white;
+    transition: fill 0.3s;
+}
+
+.social-icons a:hover {
+    color: #27ae60;
+    transform: translateY(-3px);
+}
+
+.social-icons a:hover svg {
+    fill: #27ae60;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.8;
+}

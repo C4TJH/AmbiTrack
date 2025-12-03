@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmbiTrack - Inicio</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="icons/favicon.ico">
+    <!-- RUTA CORRECTA -->
+    <link rel="stylesheet" href="assets/css/index.css">
+    <!-- FontAwesome for Social Icons (Updated to 6.4.0) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo-container">
+            <img src="icons/apple-touch-icon.png" alt="AmbiTrack Logo" class="navbar-logo">
+            <div class="logo">AmbiTrack</div>
+        </div>
+
+        <nav>
+            <a href="index.html" class="active">Inicio</a>
+            <a href="reportar.html">Reportar</a>
+            <a href="ver_reportes.html">Explorar</a>
+            <a href="mapa.html">Mapa</a>
+
+            <a href="login.html" id="btnLogin" class="btn-login">Iniciar sesión</a>
+
+            <span id="userGreeting" class="user-greeting"></span>
+            <button id="btnLogout" class="btn-logout" style="display:none;">Cerrar sesión</button>
+        </nav>
+    </header>
+
+    <!-- CARRUSEL (Sin botones) -->
+    <div class="carousel-container">
+        <div class="carousel-slide active"
+            style="background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+            <div class="overlay">
+                <h1>Reporta incidentes ambientales</h1>
+                <p>Ayuda a mantener tu comunidad limpia y segura.</p>
+            </div>
+        </div>
+        <div class="carousel-slide"
+            style="background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+            <div class="overlay">
+                <h1>Visualiza el impacto</h1>
+                <p>Explora el mapa de reportes en tiempo real.</p>
+            </div>
+        </div>
+        <div class="carousel-slide"
+            style="background-image: url('https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+            <div class="overlay">
+                <h1>Únete al cambio</h1>
+                <p>Juntos podemos hacer la diferencia.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TARJETAS INFORMATIVAS -->
+    <section class="info-cards">
+        <div class="card">
+            <h3>📷 Reporta</h3>
+            <p>Toma una foto y describe el problema ambiental en tu zona.</p>
+        </div>
+        <div class="card">
+            <h3>🗺️ Visualiza</h3>
+            <p>Consulta el mapa interactivo para ver los reportes de otros usuarios.</p>
+        </div>
+        <div class="card">
+            <h3>🤝 Colabora</h3>
+            <p>Ayuda a las autoridades y vecinos a identificar focos de contaminación.</p>
+        </div>
+    </section>
+
+    <!-- SOBRE AMBITRACK -->
+    <section class="about-section">
+        <div class="about-container">
+            <h2>¿Qué es AmbiTrack?</h2>
+            <p class="lead">
+                AmbiTrack es un sistema web de monitoreo ambiental ciudadano que permite reportar, visualizar y
+                gestionar incidentes ambientales en tiempo real. Su objetivo es apoyar la toma de decisiones mediante
+                datos georreferenciados, evidencias fotográficas y participación activa de la comunidad.
+            </p>
+
+            <div class="about-grid">
+                <div class="about-item">
+                    <h3>🎯 Objetivo</h3>
+                    <p>Facilitar el monitoreo ambiental en comunidades, instituciones educativas y administraciones
+                        locales para la recolección de datos precisos y la identificación de tendencias.</p>
+                </div>
+                <div class="about-item">
+                    <h3>🚀 Beneficios</h3>
+                    <ul>
+                        <li>Acceso rápido desde cualquier dispositivo</li>
+                        <li>Reportes geolocalizados confiables</li>
+                        <li>Visualización clara mediante mapas</li>
+                        <li>Fomento de la participación ciudadana</li>
+                    </ul>
+                </div>
+                <div class="about-item">
+                    <h3>🛠️ Tecnologías</h3>
+                    <p>Construido con herramientas modernas y escalables:</p>
+                    <div class="tech-tags">
+                        <span>HTML5</span>
+                        <span>CSS3</span>
+                        <span>JavaScript</span>
+                        <span>Google Maps</span>
+                        <span>Firebase</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMPACTO EN NÚMEROS -->
+    <section class="stats-section">
+        <div class="stat-item">
+            <h2>500+</h2>
+            <p>Reportes Enviados</p>
+        </div>
+        <div class="stat-item">
+            <h2>50</h2>
+            <p>Zonas Recuperadas</p>
+        </div>
+        <div class="stat-item">
+            <h2>1000+</h2>
+            <p>Usuarios Activos</p>
+        </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section class="how-it-works">
+        <h2>¿Cómo funciona?</h2>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-icon"><i class="fas fa-camera"></i></div>
+                <h3>1. Reporta</h3>
+                <p>Toma una foto y describe el incidente.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon"><i class="fas fa-map-marked-alt"></i></div>
+                <h3>2. Visualiza</h3>
+                <p>Tu reporte aparece en el mapa en tiempo real.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon"><i class="fas fa-hands-helping"></i></div>
+                <h3>3. Soluciona</h3>
+                <p>La comunidad y autoridades toman acción.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>¿Listo para ayudar?</h2>
+        <p>Tu reporte puede hacer la diferencia.</p>
+        <a href="reportar.html" class="btn-cta-large">Empezar a Reportar</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">AmbiTrack</div>
+            <div class="social-icons">
+                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" title="X (Twitter)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                </a>
+                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p>&copy; 2025 AmbiTrack. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase global -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/carousel.js"></script>
+    <script src="assets/js/navbar.js"></script>
+
+</body>
+
+</html>

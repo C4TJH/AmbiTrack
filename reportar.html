@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/reportar.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportar incidente</title>
+    <link rel="icon" href="icons/favicon.ico">
+    <!-- FontAwesome for Footer Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo-container">
+            <img src="icons/apple-touch-icon.png" alt="AmbiTrack Logo" class="navbar-logo">
+            <div class="logo">AmbiTrack</div>
+        </div>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="reportar.html" class="active">Reportar</a>
+            <a href="ver_reportes.html">Explorar</a>
+            <a href="mapa.html">Mapa</a>
+
+            <a href="login.html" id="btnLogin" class="btn-login">Iniciar sesión</a>
+
+            <span id="userGreeting" class="user-greeting"></span>
+            <button id="logoutBtn" class="btn-logout" style="display:none;">Cerrar sesión</button>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Reportar Incidente</h1>
+        <p id="userInfo">Cargando usuario...</p>
+
+        <form id="reportForm">
+            <div class="form-group">
+                <label for="titulo">Título del reporte</label>
+                <input type="text" id="titulo" placeholder="Ej: Basura acumulada en el parque" required>
+            </div>
+
+            <div class="form-group">
+                <label for="categoria">Categoría</label>
+                <select id="categoria" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option value="basura">Basura / Residuos</option>
+                    <option value="aire">Calidad del Aire / Humo</option>
+                    <option value="ruido">Contaminación Acústica</option>
+                    <option value="visual">Contaminación Visual</option>
+                    <option value="agua">Contaminación del Agua</option>
+                    <option value="otros">Otros</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" rows="4" placeholder="Describe el problema..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="foto">Evidencia fotográfica</label>
+                <input type="file" id="foto" accept="image/*" required>
+            </div>
+
+            <p class="note">📍 Tu ubicación se adjuntará automáticamente al enviar.</p>
+
+            <button type="submit" class="btn-submit">Enviar Reporte</button>
+            <p id="statusMsg"></p>
+        </form>
+    </div>
+
+    <!-- Firebase global (v8) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+
+    <!-- Configuración y Lógica -->
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/reportar.js"></script>
+    <script src="assets/js/navbar.js"></script>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">AmbiTrack</div>
+            <div class="social-icons">
+                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" title="X (Twitter)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                </a>
+                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p>&copy; 2025 AmbiTrack. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

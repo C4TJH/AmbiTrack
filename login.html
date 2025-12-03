@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - AmbiTrack</title>
+    <link rel="icon" href="icons/favicon.ico">
+
+    <!-- RUTA CORRECTA -->
+    <link rel="stylesheet" href="assets/css/login.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+        <h1>AmbiTrack</h1>
+        <p>Inicia sesión para continuar</p>
+
+        <button id="loginGoogle" class="google-btn">
+            Iniciar sesión con Google
+        </button>
+
+        <a href="index.html" class="back-btn">← Volver al inicio</a>
+    </div>
+
+    <!-- Firebase global -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/auth.js"></script>
+</body>
+
+</html>
