@@ -1,14 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script>
-    protegerRuta();
-</script>
+    <title>AmbiTrack - Panel de Administración</title>
 
+    <!-- Favicon -->
+    <link rel="icon" href="icons/favicon.ico">
+
+    <!-- Estilos Globales -->
+    <link rel="stylesheet" href="assets/css/index.css">
+    <!-- Estilos Dashboard -->
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- NAVBAR (Copiado de index.html) -->
+    <header class="navbar">
+        <div class="logo-container">
+            <img src="icons/apple-touch-icon.png" alt="AmbiTrack Logo" class="navbar-logo">
+            <div class="logo">AmbiTrack</div>
+        </div>
+
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="reportar.html">Reportar</a>
+            <a href="ver_reportes.html">Explorar</a>
+            <a href="mapa.html">Mapa</a>
+            <a href="juegos.html">Juegos</a>
+            <!-- Link activo para Dashboard -->
+            <a href="#" class="active">Admin</a>
+
+            <a href="login.html" id="btnLogin" class="btn-login">Iniciar sesión</a>
+
+            <span id="userGreeting" class="user-greeting"></span>
+            <button id="btnLogout" class="btn-logout" style="display:none;">Cerrar sesión</button>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <h1>Panel de Control</h1>
+            <div class="user-info">
+                <i class="fas fa-user-shield"></i> Admin: <span id="adminEmail">Verificando...</span>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <section class="stats-container">
+            <div class="stat-card">
+                <h3>Total Reportes</h3>
+                <div class="number" id="statTotal">0</div>
+            </div>
+            <div class="stat-card pending">
+                <h3>Pendientes</h3>
+                <div class="number" id="statPending">0</div>
+            </div>
+            <div class="stat-card approved">
+                <h3>Aprobados</h3>
+                <div class="number" id="statApproved">0</div>
+            </div>
+            <div class="stat-card rejected">
+                <h3>Rechazados</h3>
+                <div class="number" id="statRejected">0</div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-container">
+            <div class="chart-wrapper">
+                <h3>Reportes por Categoría</h3>
+                <canvas id="reportsChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Reports List -->
+        <section class="reports-section">
+            <div class="reports-header">
+                <h2>Gestión de Reportes</h2>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Título</th>
+                            <th>Categoría</th>
+                            <th>Usuario</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportsTableBody">
+                        <!-- Filas generadas por JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER (Copiado de index.html) -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">AmbiTrack</div>
+            <div class="social-icons">
+                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" title="X (Twitter)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                </a>
+                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p>&copy; 2025 AmbiTrack. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal de Detalles -->
+    <div id="reportModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <div class="modal-details">
+                    <h2 id="modalTitle">Título del Reporte</h2>
+
+                    <div class="detail-item">
+                        <label>Categoría:</label>
+                        <p id="modalCategory">Categoría</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Descripción:</label>
+                        <p id="modalDesc">Descripción detallada...</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Autor:</label>
+                        <p id="modalAuthor">Nombre del Autor</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Fecha:</label>
+                        <p id="modalDate">01/01/2025</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Evidencia:</label>
+                        <img id="modalImage" src="" alt="Evidencia" class="report-image" style="display:none;">
+                    </div>
+                </div>
+                <div class="modal-map">
+                    <div id="modalMap"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC9XxyRGPDCeNzAzxpcJQsvDXipH6a9FU" async
+        defer></script>
+
+    <!-- Scripts Propios -->
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/navbar.js"></script> <!-- Navbar Logic -->
+    <script src="assets/js/dashboard.js"></script>
 </body>
+
 </html>
