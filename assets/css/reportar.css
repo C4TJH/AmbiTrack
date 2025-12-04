@@ -15,16 +15,13 @@ body {
     padding: 0;
     min-height: 100vh;
     overscroll-behavior: none;
-    /* Prevent scroll bounce trambien conocdio como animacion de navegadores modernos */
 }
 
 body {
     padding-top: 100px;
-    
     display: flex;
     flex-direction: column;
     background-color: #2c3e50;
- 
 }
 
 /* fondo */
@@ -49,19 +46,41 @@ body::before {
     margin-bottom: 0 !important;
 }
 
+/* Layout Wrapper */
+.main-content-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+@media (max-width: 900px) {
+    .main-content-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 .container {
-    
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
     padding: 30px;
-    max-width: 600px;
-    margin: 20px auto;
     border-radius: 15px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     border: 1px solid rgba(255, 255, 255, 0.18);
+    flex: 1;
+    width: 100%;
+    max-width: 600px;
+    /* Limit width on large screens */
 }
 
-h1 {
+h1,
+h2 {
     color: #27ae60;
     text-align: center;
     margin-bottom: 25px;
@@ -126,5 +145,153 @@ select:focus {
     text-align: center;
     margin-top: 15px;
     font-weight: bold;
+    color: #2c3e50;
+}
+
+/* ------------------------------------------
+   MIS REPORTES SECTION
+------------------------------------------- */
+#myReportsSection {
+    margin-top: 0;
+    /* Reset margin since it's side-by-side now */
+    max-height: 800px;
+    overflow-y: auto;
+}
+
+.my-reports-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.my-report-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 5px solid #ddd;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.my-report-card:hover {
+    transform: scale(1.02);
+}
+
+.my-report-card.pendiente {
+    border-left-color: #f1c40f;
+}
+
+.my-report-card.aprobado {
+    border-left-color: #2ecc71;
+}
+
+.my-report-card.rechazado {
+    border-left-color: #e74c3c;
+}
+
+.report-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    color: #34495e;
+}
+
+.report-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.report-status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.status-pendiente {
+    background: #fef9e7;
+    color: #f1c40f;
+}
+
+.status-aprobado {
+    background: #eafaf1;
+    color: #2ecc71;
+}
+
+.status-rechazado {
+    background: #fdedec;
+    color: #e74c3c;
+}
+
+/* ------------------------------------------
+   MODAL STYLES
+------------------------------------------- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 15px;
+    position: relative;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-image {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.modal-body p {
+    margin-bottom: 10px;
     color: #2c3e50;
 }
