@@ -25,6 +25,9 @@ let marker;
 // Inicialización
 document.addEventListener('DOMContentLoaded', () => {
     checkAdminAuth();
+
+    // Event Listener para Exportar Excel
+    document.getElementById('btnExportExcel').addEventListener('click', exportToExcel);
 });
 
 // Verificar Autenticación y Permisos
@@ -144,9 +147,10 @@ function renderTable() {
             <td>${report.authorName || 'Anónimo'}</td>
             <td><span class="status-badge ${status}">${status}</span></td>
             <td>
-                <button class="action-btn btn-view" onclick="viewReport('${report.id}')">Ver</button>
-                ${status !== 'aprobado' ? `<button class="action-btn btn-approve" onclick="updateStatus('${report.id}', 'aprobado')">Aprobar</button>` : ''}
-                ${status !== 'rechazado' ? `<button class="action-btn btn-reject" onclick="updateStatus('${report.id}', 'rechazado')">Rechazar</button>` : ''}
+                <button class="action-btn btn-view" onclick="viewReport('${report.id}')" title="Ver Detalle"><i class="fas fa-eye"></i></button>
+                <button class="action-btn btn-pdf" onclick="exportToPDF('${report.id}')" title="Exportar PDF" style="background-color: #e74c3c;"><i class="fas fa-file-pdf"></i></button>
+                ${status !== 'aprobado' ? `<button class="action-btn btn-approve" onclick="updateStatus('${report.id}', 'aprobado')" title="Aprobar"><i class="fas fa-check"></i></button>` : ''}
+                ${status !== 'rechazado' ? `<button class="action-btn btn-reject" onclick="updateStatus('${report.id}', 'rechazado')" title="Rechazar"><i class="fas fa-times"></i></button>` : ''}
             </td>
         `;
         tableBody.appendChild(tr);
@@ -228,3 +232,97 @@ function initModalMap(location) {
         });
     }
 }
+
+// --- FUNCIONES DE EXPORTACIÓN ---
+
+// Exportar a Excel
+function exportToExcel() {
+    if (currentReports.length === 0) {
+        alert("No hay reportes para exportar.");
+        return;
+    }
+
+    // Preparar datos para Excel
+    const dataToExport = currentReports.map(report => ({
+        Fecha: report.timestamp ? new Date(report.timestamp.toDate()).toLocaleDateString() : 'N/A',
+        Título: report.titulo || 'Sin título',
+        Categoría: report.categoria || 'General',
+        Descripción: report.descripcion || '',
+        Autor: report.authorName || 'Anónimo',
+        EmailAutor: report.authorEmail || 'N/A',
+        Estado: report.status || 'pendiente',
+        Ubicación: report.location ? `${report.location.lat}, ${report.location.lng}` : 'N/A'
+    }));
+
+    // Crear hoja de trabajo
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Reportes");
+
+    // Guardar archivo
+    XLSX.writeFile(wb, "Reportes_AmbiTrack.xlsx");
+}
+
+// Exportar a PDF (Individual)
+window.exportToPDF = function (id) {
+    const report = currentReports.find(r => r.id === id);
+    if (!report) return;
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Configuración de fuentes y colores
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(22);
+    doc.setTextColor(44, 62, 80); // Color oscuro
+    doc.text("Reporte de Incidente - AmbiTrack", 20, 20);
+
+    doc.setLineWidth(0.5);
+    doc.line(20, 25, 190, 25);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+
+    let yPos = 40;
+
+    // Función auxiliar para agregar líneas
+    const addLine = (label, value) => {
+        doc.setFont("helvetica", "bold");
+        doc.text(`${label}:`, 20, yPos);
+        doc.setFont("helvetica", "normal");
+
+        // Manejo de texto largo para descripción
+        if (label === "Descripción") {
+            const splitText = doc.splitTextToSize(value, 120);
+            doc.text(splitText, 60, yPos);
+            yPos += (splitText.length * 7);
+        } else {
+            doc.text(String(value), 60, yPos);
+            yPos += 10;
+        }
+    };
+
+    const date = report.timestamp ? new Date(report.timestamp.toDate()).toLocaleString() : 'N/A';
+
+    addLine("ID Reporte", report.id);
+    addLine("Fecha", date);
+    addLine("Título", report.titulo || 'Sin título');
+    addLine("Categoría", report.categoria || 'General');
+    addLine("Estado", report.status || 'pendiente');
+    addLine("Autor", report.authorName || 'Anónimo');
+    addLine("Email", report.authorEmail || 'N/A');
+    addLine("Descripción", report.descripcion || 'Sin descripción');
+
+    if (report.location) {
+        addLine("Ubicación", `${report.location.lat}, ${report.location.lng}`);
+    }
+
+    // Pie de página
+    doc.setFontSize(10);
+    doc.setTextColor(150);
+    doc.text("Generado automáticamente por AmbiTrack System", 20, 280);
+
+    // Guardar PDF
+    doc.save(`Reporte_${report.id}.pdf`);
+};
