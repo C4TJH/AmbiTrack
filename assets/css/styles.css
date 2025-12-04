@@ -1,6 +1,6 @@
-/* -------------------------------------
+/* 
    ESTILOS GENERALES
-------------------------------------- */
+ */
 
 * {
     margin: 0;
@@ -32,9 +32,9 @@ h1, h2, h3 {
     text-align: center;
 }
 
-/* -------------------------------------
+/* 
    BOTONES
-------------------------------------- */
+ */
 
 button, .btn {
     background: #2ecc71;
@@ -60,9 +60,9 @@ button:hover, .btn:hover {
     gap: 10px;
 }
 
-/* -------------------------------------
+/* 
    NAV / MENU
-------------------------------------- */
+- */
 
 nav ul {
     list-style: none;
@@ -90,9 +90,9 @@ nav a:hover, nav button:hover {
     color: white;
 }
 
-/* -------------------------------------
+/* 
    FORMULARIOS
-------------------------------------- */
+ */
 
 input, textarea, select {
     width: 100%;
@@ -111,9 +111,9 @@ input:focus, textarea:focus, select:focus {
     box-shadow: 0 0 4px rgba(46, 204, 113, 0.4);
 }
 
-/* -------------------------------------
+/* 
    TARJETAS DE CONTENIDO
-------------------------------------- */
+ */
 
 .card {
     background: white;
@@ -128,9 +128,9 @@ input:focus, textarea:focus, select:focus {
     color: #2ecc71;
 }
 
-/* -------------------------------------
+/* 
    RESPONSIVE
-------------------------------------- */
+ */
 
 @media (max-width: 600px) {
     nav ul {

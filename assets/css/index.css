@@ -1,4 +1,4 @@
-/* GLOBAL STYLES */
+/* estilos globales */
 html {
     overscroll-behavior: none;
 }
@@ -61,7 +61,7 @@ nav a.active {
     color: #27ae60;
 }
 
-/* Hover Animation (Underline) */
+/* Hover animacion (subrayado) */
 nav a::after {
     content: '';
     position: absolute;
@@ -108,7 +108,7 @@ nav a.active::after {
     height: 500px;
     overflow: hidden;
     margin-top: 70px;
-    /* Space for fixed navbar */
+    
 }
 
 .carousel-slide {
