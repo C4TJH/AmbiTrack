@@ -10,13 +10,13 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    /* Background Image - Dark Minimalist Nature */
+    /* imagen de fondo */
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
     color: white;
-    /* Default text color for body */
+    /* color de texto por defecto para body */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -24,7 +24,7 @@ body {
     /* Space for fixed navbar */
 }
 
-/* Main Content Container */
+/* contenido principal */
 .main-content {
     flex: 1;
     width: 100%;
@@ -58,7 +58,7 @@ body {
     backdrop-filter: blur(5px);
 }
 
-/* Stats Cards */
+/* tarjetas de estadisticas */
 .stats-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

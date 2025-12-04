@@ -1,4 +1,4 @@
-/* Premium Login Styles */
+/* estilos login */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
 :root {
@@ -19,12 +19,12 @@ body {
     margin: 0;
     font-family: 'Outfit', sans-serif;
     background: #1a1a1a;
-    /* Fallback */
+   
     overflow: hidden;
     position: relative;
 }
 
-/* Animated Green Gradient Background */
+/* fondo */
 body::before {
     content: "";
     position: absolute;
@@ -37,7 +37,7 @@ body::before {
     z-index: -2;
 }
 
-body::after {}
+body::after {
 
 position: absolute;
 top: 0;

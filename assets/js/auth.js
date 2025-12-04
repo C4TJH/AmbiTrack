@@ -10,7 +10,7 @@ const forgotPasswordLink = document.getElementById('forgotPasswordLink');
 
 const loginGoogleBtn = document.getElementById('loginGoogle');
 
-// Toggle Forms
+// activar Formularios
 if (showRegisterBtn) {
     showRegisterBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -57,7 +57,7 @@ if (formLoginEmail) {
 
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
-                // Check if email is verified
+                // chequea si el email esta verificado
                 if (!userCredential.user.emailVerified) {
                     Swal.fire({
                         icon: 'warning',
@@ -80,7 +80,7 @@ if (formLoginEmail) {
     });
 }
 
-// Registration
+// Registro
 if (formRegister) {
     formRegister.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -108,7 +108,7 @@ if (formRegister) {
 
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
-                // Send Verification Email
+                // enviar verificacion de email
                 userCredential.user.sendEmailVerification()
                     .then(() => {
                         Swal.fire({
@@ -135,7 +135,7 @@ if (formRegister) {
     });
 }
 
-// Forgot Password
+// olvido de contraseña
 if (forgotPasswordLink) {
     forgotPasswordLink.addEventListener('click', async (e) => {
         e.preventDefault();
