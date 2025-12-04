@@ -4,47 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AmbiTrack - Iniciar Sesión</title>
+    <title>Iniciar Sesión - AmbiTrack</title>
     <link rel="icon" href="icons/favicon.ico">
     <link rel="stylesheet" href="assets/css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
 
-    <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i></a>
-
     <div class="login-container">
+        <div class="brand-logo">
+            <img src="icons/apple-touch-icon.png" alt="Logo">
+            <h1>AmbiTrack</h1>
+        </div>
+
         <!-- Login Form -->
         <div id="loginForm">
             <div class="login-header">
-                <h2>Bienvenido</h2>
-                <p>Inicia sesión para continuar</p>
+                <h2>Bienvenido de nuevo</h2>
+                <p>Ingresa tus credenciales para continuar</p>
             </div>
 
             <form id="formLoginEmail">
                 <div class="form-group">
-                    <label>Correo Electrónico</label>
-                    <input type="email" id="loginEmail" placeholder="ejemplo@correo.com" required>
+                    <label><i class="fas fa-envelope"></i> Correo Electrónico</label>
+                    <input type="email" id="loginEmail" placeholder="nombre@ejemplo.com" required>
                 </div>
                 <div class="form-group">
-                    <label>Contraseña</label>
+                    <label><i class="fas fa-lock"></i> Contraseña</label>
                     <input type="password" id="loginPassword" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn-primary">Ingresar</button>
+
+                <div class="form-actions">
+                    <a href="#" id="forgotPasswordLink" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    Ingresar <i class="fas fa-arrow-right"></i>
+                </button>
             </form>
 
             <div class="divider">
                 <span>O continúa con</span>
             </div>
 
-            <button id="loginGoogle" class="btn-google">
+            <button id="loginGoogle" class="google-btn">
                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-                Google
+                Iniciar sesión con Google
             </button>
 
             <div class="toggle-link">
-                ¿No tienes cuenta? <a href="#" id="showRegister">Regístrate aquí</a>
+                ¿No tienes cuenta? <a href="#" id="showRegister">Regístrate ahora</a>
             </div>
         </div>
 
@@ -52,20 +64,20 @@
         <div id="registerForm" class="hidden">
             <div class="login-header">
                 <h2>Crear Cuenta</h2>
-                <p>Únete a AmbiTrack</p>
+                <p>Únete a nuestra comunidad ambiental</p>
             </div>
 
             <form id="formRegister">
                 <div class="form-group">
-                    <label>Correo Electrónico</label>
-                    <input type="email" id="regEmail" placeholder="ejemplo@correo.com" required>
+                    <label><i class="fas fa-envelope"></i> Correo Electrónico</label>
+                    <input type="email" id="regEmail" placeholder="nombre@ejemplo.com" required>
                 </div>
                 <div class="form-group">
-                    <label>Contraseña</label>
+                    <label><i class="fas fa-lock"></i> Contraseña</label>
                     <input type="password" id="regPassword" placeholder="••••••••" required>
                 </div>
                 <div class="form-group">
-                    <label>Confirmar Contraseña</label>
+                    <label><i class="fas fa-check-circle"></i> Confirmar Contraseña</label>
                     <input type="password" id="regConfirmPassword" placeholder="••••••••" required>
                 </div>
                 <button type="submit" class="btn-primary">Registrarse</button>
@@ -75,15 +87,19 @@
                 ¿Ya tienes cuenta? <a href="#" id="showLogin">Inicia sesión</a>
             </div>
         </div>
+
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
     </div>
 
     <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
 
     <script src="assets/js/firebase-config.js"></script>
     <script src="assets/js/auth.js"></script>
+
 </body>
 
 </html>

@@ -29,13 +29,17 @@
             <a href="login.html" id="btnLogin" class="btn-login">Iniciar sesión</a>
 
             <span id="userGreeting" class="user-greeting"></span>
-            <button id="logoutBtn" class="btn-logout" style="display:none;">Cerrar sesión</button>
+            <button id="btnLogout" class="btn-logout" style="display:none;">Cerrar sesión</button>
         </nav>
     </header>
 
-    <div class="container">
+    <!-- Hero Section -->
+    <section class="explore-hero">
         <h1>Explorar Incidentes</h1>
+        <p>Descubre y monitorea los reportes ambientales en tu comunidad.</p>
+    </section>
 
+    <div class="container">
         <div class="filters">
             <label for="filterCategory">Filtrar por categoría:</label>
             <select id="filterCategory">
@@ -49,9 +53,11 @@
             </select>
         </div>
 
-        <div id="reportsGrid" class="reports-grid">
-            <!-- Las tarjetas se cargarán aquí dinámicamente -->
-            <p class="loading">Cargando reportes...</p>
+        <div class="reports-grid-wrapper">
+            <div id="reportsGrid" class="reports-grid">
+                <!-- Las tarjetas se cargarán aquí dinámicamente -->
+                <p class="loading">Cargando reportes...</p>
+            </div>
         </div>
     </div>
 

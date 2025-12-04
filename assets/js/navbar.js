@@ -3,20 +3,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnLogin = document.getElementById("btnLogin");
     const userGreeting = document.getElementById("userGreeting");
     const btnLogout = document.getElementById("btnLogout") || document.getElementById("logoutBtn");
-    const navMenu = document.querySelector("nav"); // Select the nav container
+    const navMenu = document.querySelector("nav");
 
-    // Admin Emails List (Should match dashboard.js)
+    // Admin Emails List
     const ADMIN_EMAILS = ["catjmartinez2002@gmail.com"];
 
-    // Only proceed if the greeting element exists
     if (!userGreeting) return;
 
-    // Setup logout handler first (if button exists)
+    // Handle Logout
     if (btnLogout) {
-        // Remove existing listeners to avoid duplicates
+        // Clone to remove old listeners
         const newBtn = btnLogout.cloneNode(true);
         btnLogout.parentNode.replaceChild(newBtn, btnLogout);
-        const logoutButton = newBtn; // Update reference to the new button
+        const logoutButton = newBtn;
 
         logoutButton.addEventListener("click", () => {
             auth.signOut().then(() => {
@@ -24,28 +23,31 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        // IMPORTANT: Set initial state to hidden
-        logoutButton.style.display = "none";
-
-        // Then handle auth state changes
+        // Auth State Listener
         auth.onAuthStateChanged(user => {
             if (user) {
                 if (btnLogin) btnLogin.style.display = "none";
 
-                const name = user.displayName || user.email;
-                userGreeting.textContent = "Hola, " + name;
+                // Get Name or Email
+                let displayName = user.displayName;
+                if (!displayName) {
+                    displayName = user.email.split('@')[0];
+                }
+
+                // Simple Text Greeting
+                userGreeting.textContent = `Hola, ${displayName}`;
+                userGreeting.style.display = "inline-block";
 
                 logoutButton.style.display = "inline-block";
 
-                // Check for Admin Access and Inject Link if not present
+                // Admin Link
                 if (ADMIN_EMAILS.includes(user.email)) {
                     if (!document.getElementById("adminLink")) {
                         const adminLink = document.createElement("a");
                         adminLink.id = "adminLink";
                         adminLink.href = "dashboard.html";
                         adminLink.textContent = "Admin";
-                        // Insert before the login button or at a specific position
-                        // Finding the best place: after 'Mapa'
+
                         const mapLink = document.querySelector('a[href="mapa.html"]');
                         if (mapLink && mapLink.nextSibling) {
                             navMenu.insertBefore(adminLink, mapLink.nextSibling);
@@ -57,39 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 if (btnLogin) btnLogin.style.display = "inline-block";
                 userGreeting.textContent = "";
+                userGreeting.style.display = "none";
                 logoutButton.style.display = "none";
 
-                // Remove admin link if exists
-                const adminLink = document.getElementById("adminLink");
-                if (adminLink) adminLink.remove();
-            }
-        });
-    } else {
-        // If no logout button, just handle greeting
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                if (btnLogin) btnLogin.style.display = "none";
-                const name = user.displayName || user.email;
-                userGreeting.textContent = "Hola, " + name;
-
-                // Check for Admin Access (Duplicate logic for robustness)
-                if (ADMIN_EMAILS.includes(user.email)) {
-                    if (!document.getElementById("adminLink")) {
-                        const adminLink = document.createElement("a");
-                        adminLink.id = "adminLink";
-                        adminLink.href = "dashboard.html";
-                        adminLink.textContent = "Admin";
-                        const mapLink = document.querySelector('a[href="mapa.html"]');
-                        if (mapLink && mapLink.nextSibling) {
-                            navMenu.insertBefore(adminLink, mapLink.nextSibling);
-                        } else {
-                            navMenu.appendChild(adminLink);
-                        }
-                    }
-                }
-            } else {
-                if (btnLogin) btnLogin.style.display = "inline-block";
-                userGreeting.textContent = "";
                 const adminLink = document.getElementById("adminLink");
                 if (adminLink) adminLink.remove();
             }

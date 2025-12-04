@@ -1,18 +1,10 @@
-html {
-    overscroll-behavior: none;
-    /* Prevent scroll bounce */
-}
-
+/* Explore Page Background */
 body {
-    margin: 0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background-color: #f5f5f5;
-    min-height: 100vh;
-    padding-top: 80px;
-    overscroll-behavior: none;
+    background: url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
 }
 
-/* Blurred Background */
 body::before {
     content: "";
     position: fixed;
@@ -20,26 +12,44 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
-    background-size: cover;
+    background: inherit;
     filter: blur(8px) brightness(0.7);
     z-index: -1;
+}
+
+/* Explore Hero */
+.explore-hero {
+    height: 50vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 40px;
+    margin-top: 70px;
+    /* Space for fixed navbar */
+}
+
+.explore-hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.explore-hero p {
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    position: relative;
-    z-index: 1;
-}
-
-h1 {
-    color: #fff;
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* Filters */

@@ -1,14 +1,12 @@
+/* GLOBAL STYLES */
 html {
     overscroll-behavior: none;
-    /* Prevent scroll bounce */
 }
 
 body {
     margin: 0;
     font-family: "Segoe UI", Arial, sans-serif;
-    background: #f5f5f5;
-    padding-top: 80px;
-    overscroll-behavior: none;
+    color: #333;
 }
 
 /* NAVBAR */
@@ -27,7 +25,6 @@ body {
     backdrop-filter: blur(15px);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-
     /* Unique Gradient Border */
     border-bottom: 3px solid transparent;
     border-image: linear-gradient(to right, #27ae60, #2ecc71, #f1c40f) 1;
@@ -104,12 +101,14 @@ nav a.active::after {
     cursor: pointer;
 }
 
-/* HERO (Replaced by Carousel) */
+/* CAROUSEL */
 .carousel-container {
     position: relative;
     width: 100%;
     height: 500px;
     overflow: hidden;
+    margin-top: 70px;
+    /* Space for fixed navbar */
 }
 
 .carousel-slide {
@@ -167,12 +166,6 @@ nav a.active::after {
 
 .btn-cta:hover {
     background: #2ecc71;
-}
-
-/* Arrows removed as per request */
-.prev,
-.next {
-    display: none;
 }
 
 /* INFO CARDS */
@@ -345,9 +338,10 @@ nav a.active::after {
 
 .step p {
     color: #666;
+    margin-bottom: 0;
 }
 
-/* CTA SECTION with Background Image */
+/* CTA SECTION */
 .cta-section {
     position: relative;
     color: white;
@@ -376,7 +370,6 @@ nav a.active::after {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
-    /* Dark overlay */
     z-index: -1;
 }
 
@@ -413,7 +406,7 @@ nav a.active::after {
     background: #2ecc71;
 }
 
-/* FOOTER - More compact and discrete */
+/* FOOTER */
 footer {
     background: #222;
     color: white;
