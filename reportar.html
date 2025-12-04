@@ -33,44 +33,69 @@
         </nav>
     </header>
 
-    <div class="container">
-        <h1>Reportar Incidente</h1>
-        <p id="userInfo">Cargando usuario...</p>
+    <div class="main-content-wrapper">
+        <div class="container form-container">
+            <h1>Reportar Incidente</h1>
+            <p id="userInfo">Cargando usuario...</p>
 
-        <form id="reportForm">
-            <div class="form-group">
-                <label for="titulo">Título del reporte</label>
-                <input type="text" id="titulo" placeholder="Ej: Basura acumulada en el parque" required>
+            <form id="reportForm">
+                <div class="form-group">
+                    <label for="titulo">Título del reporte</label>
+                    <input type="text" id="titulo" placeholder="Ej: Basura acumulada en el parque" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">Categoría</label>
+                    <select id="categoria" required>
+                        <option value="">Selecciona una categoría</option>
+                        <option value="basura">Basura / Residuos</option>
+                        <option value="aire">Calidad del Aire / Humo</option>
+                        <option value="ruido">Contaminación Acústica</option>
+                        <option value="visual">Contaminación Visual</option>
+                        <option value="agua">Contaminación del Agua</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" rows="4" placeholder="Describe el problema..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="foto">Evidencia fotográfica</label>
+                    <input type="file" id="foto" accept="image/*" required>
+                </div>
+
+                <p class="note">📍 Tu ubicación se adjuntará automáticamente al enviar.</p>
+
+                <button type="submit" class="btn-submit">Enviar Reporte</button>
+                <p id="statusMsg"></p>
+            </form>
+        </div>
+
+        <div class="container history-container" id="myReportsSection" style="display: none;">
+            <h2>Mis Reportes Anteriores</h2>
+            <div id="myReportsList" class="my-reports-list">
+                <p>Cargando tus reportes...</p>
             </div>
+        </div>
+    </div>
 
-            <div class="form-group">
-                <label for="categoria">Categoría</label>
-                <select id="categoria" required>
-                    <option value="">Selecciona una categoría</option>
-                    <option value="basura">Basura / Residuos</option>
-                    <option value="aire">Calidad del Aire / Humo</option>
-                    <option value="ruido">Contaminación Acústica</option>
-                    <option value="visual">Contaminación Visual</option>
-                    <option value="agua">Contaminación del Agua</option>
-                    <option value="otros">Otros</option>
-                </select>
+    <!-- Modal para detalles del reporte -->
+    <div id="reportModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle">Título del Reporte</h2>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Evidencia" class="modal-image">
+                <p><strong>Categoría:</strong> <span id="modalCategory"></span></p>
+                <p><strong>Estado:</strong> <span id="modalStatus" class="report-status"></span></p>
+                <p><strong>Fecha:</strong> <span id="modalDate"></span></p>
+                <p><strong>Descripción:</strong></p>
+                <p id="modalDescription"></p>
             </div>
-
-            <div class="form-group">
-                <label for="descripcion">Descripción</label>
-                <textarea id="descripcion" rows="4" placeholder="Describe el problema..." required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="foto">Evidencia fotográfica</label>
-                <input type="file" id="foto" accept="image/*" required>
-            </div>
-
-            <p class="note">📍 Tu ubicación se adjuntará automáticamente al enviar.</p>
-
-            <button type="submit" class="btn-submit">Enviar Reporte</button>
-            <p id="statusMsg"></p>
-        </form>
+        </div>
     </div>
 
     <!-- Firebase global (v8) -->
