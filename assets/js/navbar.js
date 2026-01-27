@@ -1,70 +1,75 @@
 document.addEventListener("DOMContentLoaded", () => {
     const auth = firebase.auth();
     const btnLogin = document.getElementById("btnLogin");
-    const userGreeting = document.getElementById("userGreeting");
-    const btnLogout = document.getElementById("btnLogout") || document.getElementById("logoutBtn");
-    const navMenu = document.querySelector("nav");
 
-    // Admin Emails List
+    // Elementos del menú de usuario
+    const userMenu = document.getElementById("userMenu");
+    const userGreeting = document.getElementById("userGreeting");
+    const userInitial = document.getElementById("userInitial");
+    const btnLogout = document.getElementById("btnLogout");
+    const adminLink = document.getElementById("adminLink");
+
+    const navbar = document.querySelector(".navbar");
+
+    // Lista de correos de administradores
     const ADMIN_EMAILS = ["catjmartinez2002@gmail.com"];
 
-    if (!userGreeting) return;
+    // Efecto de scroll en la barra de navegación
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
 
-    // Handle Logout
+    // Alternar menú desplegable
+    if (userMenu) {
+        userMenu.addEventListener("click", (e) => {
+            e.stopPropagation();
+            userMenu.classList.toggle("active");
+        });
+
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener("click", () => {
+            userMenu.classList.remove("active");
+        });
+    }
+
+    // Manejar cierre de sesión
     if (btnLogout) {
-        // Clone to remove old listeners
-        const newBtn = btnLogout.cloneNode(true);
-        btnLogout.parentNode.replaceChild(newBtn, btnLogout);
-        const logoutButton = newBtn;
-
-        logoutButton.addEventListener("click", () => {
+        btnLogout.addEventListener("click", () => {
             auth.signOut().then(() => {
                 window.location.href = "index.html";
             });
         });
-
-        // Auth State Listener
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                if (btnLogin) btnLogin.style.display = "none";
-
-                // Get Name or Email
-                let displayName = user.displayName;
-                if (!displayName) {
-                    displayName = user.email.split('@')[0];
-                }
-
-                // Simple Text Greeting
-                userGreeting.textContent = `Hola, ${displayName}`;
-                userGreeting.style.display = "inline-block";
-
-                logoutButton.style.display = "inline-block";
-
-                // Admin Link
-                if (ADMIN_EMAILS.includes(user.email)) {
-                    if (!document.getElementById("adminLink")) {
-                        const adminLink = document.createElement("a");
-                        adminLink.id = "adminLink";
-                        adminLink.href = "dashboard.html";
-                        adminLink.textContent = "Admin";
-
-                        const mapLink = document.querySelector('a[href="mapa.html"]');
-                        if (mapLink && mapLink.nextSibling) {
-                            navMenu.insertBefore(adminLink, mapLink.nextSibling);
-                        } else {
-                            navMenu.appendChild(adminLink);
-                        }
-                    }
-                }
-            } else {
-                if (btnLogin) btnLogin.style.display = "inline-block";
-                userGreeting.textContent = "";
-                userGreeting.style.display = "none";
-                logoutButton.style.display = "none";
-
-                const adminLink = document.getElementById("adminLink");
-                if (adminLink) adminLink.remove();
-            }
-        });
     }
+
+    // Estado de autenticación
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            // Usuario autenticado
+            if (btnLogin) btnLogin.style.display = "none";
+            if (userMenu) userMenu.style.display = "flex";
+
+            // Obtener nombre o correo
+            let displayName = user.displayName;
+            if (!displayName) {
+                displayName = user.email.split('@')[0];
+            }
+
+            // Actualizar interfaz
+            if (userGreeting) userGreeting.textContent = displayName;
+            if (userInitial) userInitial.textContent = displayName.charAt(0).toUpperCase();
+
+            // Verificación de administrador
+            if (ADMIN_EMAILS.includes(user.email)) {
+                if (adminLink) adminLink.style.display = "flex";
+            }
+        } else {
+            // Sin usuario
+            if (btnLogin) btnLogin.style.display = "flex";
+            if (userMenu) userMenu.style.display = "none";
+        }
+    });
 });

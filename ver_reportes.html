@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/ver_reportes.css">
     <!-- FontAwesome para iconos del Footer -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -26,39 +26,111 @@
             <a href="mapa.html">Mapa</a>
             <a href="juegos.html">Juegos</a>
 
-            <a href="login.html" id="btnLogin" class="btn-login">Iniciar sesión</a>
+            <div class="auth-buttons">
+                <!-- Login Button (Default Visible) -->
+                <a href="login.html" id="btnLogin" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+                </a>
 
-            <span id="userGreeting" class="user-greeting"></span>
-            <button id="btnLogout" class="btn-logout" style="display:none;">Cerrar sesión</button>
+                <!-- User Dropdown (Hidden initially) -->
+                <div id="userMenu" class="user-menu-container">
+                    <div class="user-avatar-btn">
+                        <div class="user-avatar-initial" id="userInitial">U</div>
+                        <span class="user-name-display" id="userGreeting">Usuario</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px; color: #64748b;"></i>
+                    </div>
+
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item" id="adminLink" style="display:none;">
+                            <i class="fas fa-chart-line"></i> Dashboard
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <button id="btnLogout" class="dropdown-item text-danger"
+                            style="width: 100%; border: none; background: none; cursor: pointer;">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="explore-hero">
-        <h1>Explorar Incidentes</h1>
-        <p>Descubre y monitorea los reportes ambientales en tu comunidad.</p>
-    </section>
 
-    <div class="container">
-        <div class="filters">
-            <label for="filterCategory">Filtrar por categoría:</label>
-            <select id="filterCategory">
-                <option value="todas">Todas</option>
-                <option value="basura">Basura</option>
-                <option value="aire">Aire</option>
-                <option value="ruido">Ruido</option>
-                <option value="visual">Visual</option>
-                <option value="agua">Agua</option>
-                <option value="otros">Otros</option>
-            </select>
-        </div>
 
-        <div class="reports-grid-wrapper">
-            <div id="reportsGrid" class="reports-grid">
-                <!-- Las tarjetas se cargarán aquí dinámicamente -->
-                <p class="loading">Cargando reportes...</p>
+    <!-- Main Content Grid Layout - Full Width -->
+    <div class="explore-layout-wrapper full-width">
+
+        <!-- Left Sidebar: Filters & Quick Stats -->
+        <aside class="sidebar-left">
+            <div class="sidebar-card stats-summary">
+                <h3><i class="fas fa-chart-pie color-green"></i> Impacto Global</h3>
+                <div class="stat-item">
+                    <span class="stat-number">1,240</span>
+                    <span class="stat-label">Reportes Totales</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">85%</span>
+                    <span class="stat-label">Tasa de Resolución</span>
+                </div>
+                <div class="stat-divider"></div>
+                <p class="stat-footer">Actualizado hoy</p>
             </div>
-        </div>
+
+            <div class="sidebar-card filters-card">
+                <h3><i class="fas fa-filter color-blue"></i> Filtrar</h3>
+                <div class="filter-option">
+                    <label>Categoría</label>
+                    <select id="filterCategory">
+                        <option value="todas">Todas</option>
+                        <option value="basura">Basura</option>
+                        <option value="aire">Aire</option>
+                        <option value="ruido">Ruido</option>
+                        <option value="agua">Agua</option>
+                        <option value="visual">Visual</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center: Reports Grid -->
+        <main class="main-feed">
+            <div class="feed-header">
+                <h2>Recientes</h2>
+                <div class="view-toggle">
+                    <button class="active"><i class="fas fa-th-large"></i></button>
+                    <!-- <button><i class="fas fa-list"></i></button> -->
+                </div>
+            </div>
+
+            <div id="reportsGrid" class="reports-grid">
+                <!-- Cards injected via JS -->
+                <div class="loading-spinner">
+                    <p style="text-align:center; width:100%; color:#64748b;">Cargando reportes...</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar: Community & Ranking -->
+        <aside class="sidebar-right">
+            <div class="sidebar-card ranking-card">
+                <h3><i class="fas fa-trophy color-gold"></i> Top Ciudadanos</h3>
+                <ul class="ranking-list" id="rankingList">
+                    <li>
+                        <div style="text-align: center; color: #64748b; padding: 20px 0;">
+                            Cargando...
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-card info-card-green">
+                <h3>¿Sabías que?</h3>
+                <p>Reportar una fuga de agua a tiempo puede ahorrar hasta <strong>1,000 litros</strong> por día.</p>
+                <i class="fas fa-lightbulb icon-bg"></i>
+            </div>
+        </aside>
+
     </div>
 
     <!-- Firebase global -->
@@ -75,21 +147,53 @@
     <script src="assets/js/navbar.js"></script>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">AmbiTrack</div>
-            <div class="social-icons">
-                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" target="_blank" title="X (Twitter)">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
-                </a>
-                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    <footer class="rich-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">AmbiTrack</div>
+                <p>Plataforma líder en monitoreo ambiental ciudadano. Juntos construimos un futuro más sostenible.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
             </div>
-            <p>&copy; 2025 AmbiTrack. Todos los derechos reservados.</p>
+
+            <div class="footer-column">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="reportar.html">Reportar Incidente</a></li>
+                    <li><a href="mapa.html">Mapa en Tiempo Real</a></li>
+                    <li><a href="ver_reportes.html">Explorar Reportes</a></li>
+                    <li><a href="juegos.html">Zona de Juegos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Recursos</h4>
+                <ul>
+                    <li><a href="#">Centro de Ayuda</a></li>
+                    <li><a href="#">Guía de Reciclaje</a></li>
+                    <li><a href="#">Estadísticas Ambientales</a></li>
+                    <li><a href="#">Términos de Uso</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Boletín Informativo</h4>
+                <p>Recibe noticias y actualizaciones ambientales semanalmente.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Tu correo electrónico">
+                    <button type="button"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 AmbiTrack. Hecho con 💚 por el equipo de desarrollo.</p>
         </div>
     </footer>
 

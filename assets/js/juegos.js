@@ -305,3 +305,32 @@ document.addEventListener('click', function (e) {
         closeGameModal();
     }
 });
+
+// HERO CAROUSEL
+// HERO CAROUSEL
+(function () {
+    function initCarousel() {
+        const slides = document.querySelectorAll('.carousel-slide');
+        if (slides.length > 0) {
+            let currentSlide = 0;
+
+            // Start rotation
+            setInterval(() => {
+                // Remove active from current
+                slides[currentSlide].classList.remove('active');
+
+                // Move to next
+                currentSlide = (currentSlide + 1) % slides.length;
+
+                // Add active to next
+                slides[currentSlide].classList.add('active');
+            }, 5000); // Change every 5 seconds
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCarousel);
+    } else {
+        initCarousel();
+    }
+})();

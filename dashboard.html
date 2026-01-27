@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="assets/css/dashboard.css">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -120,21 +120,54 @@
     </main>
 
     <!-- FOOTER (Copiado de index.html) -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">AmbiTrack</div>
-            <div class="social-icons">
-                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" target="_blank" title="X (Twitter)">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
-                </a>
-                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    <!-- FOOTER -->
+    <footer class="rich-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">AmbiTrack</div>
+                <p>Plataforma líder en monitoreo ambiental ciudadano. Juntos construimos un futuro más sostenible.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
             </div>
-            <p>&copy; 2025 AmbiTrack. Todos los derechos reservados.</p>
+
+            <div class="footer-column">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="reportar.html">Reportar Incidente</a></li>
+                    <li><a href="mapa.html">Mapa en Tiempo Real</a></li>
+                    <li><a href="ver_reportes.html">Explorar Reportes</a></li>
+                    <li><a href="juegos.html">Zona de Juegos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Recursos</h4>
+                <ul>
+                    <li><a href="#">Centro de Ayuda</a></li>
+                    <li><a href="#">Guía de Reciclaje</a></li>
+                    <li><a href="#">Estadísticas Ambientales</a></li>
+                    <li><a href="#">Términos de Uso</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Boletín Informativo</h4>
+                <p>Recibe noticias y actualizaciones ambientales semanalmente.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Tu correo electrónico">
+                    <button type="button"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 AmbiTrack. Hecho con 💚 por el equipo de desarrollo.</p>
         </div>
     </footer>
 

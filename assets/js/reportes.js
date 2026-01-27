@@ -9,6 +9,7 @@ let allReports = [];
 // Cargar reportes al iniciar
 document.addEventListener('DOMContentLoaded', () => {
     loadReports();
+    loadTopCitizens();
 });
 
 // Escuchar cambios en el filtro
@@ -25,12 +26,38 @@ function loadReports() {
             querySnapshot.forEach((doc) => {
                 allReports.push({ id: doc.id, ...doc.data() });
             });
+
+            // Calculate Stats
+            updateGlobalStats(allReports);
+
             renderReports('todas');
+
+            // Update leaderboard
+            loadTopCitizens();
         })
         .catch((error) => {
             console.error("Error cargando reportes:", error);
-            reportsGrid.innerHTML = '<p class="error">Error al cargar reportes.</p>';
+            reportsGrid.innerHTML = `<p class="error">Error al cargar reportes: ${error.message}</p>`;
         });
+}
+
+function updateGlobalStats(reports) {
+    const totalReports = reports.length;
+
+    // Count resolved/approved reports
+    // Assuming status values might be: 'resuelto', 'aprobado', 'pendiente', 'rechazado'
+    const resolvedCount = reports.filter(r => r.status === 'resuelto' || r.status === 'aprobado').length;
+
+    // Calculate rate
+    const resolutionRate = totalReports > 0 ? Math.round((resolvedCount / totalReports) * 100) : 0;
+
+    // Update DOM
+    // Select elements - user needs to ensure these classes exist in HTML
+    const statNumberEls = document.querySelectorAll('.stat-number');
+    if (statNumberEls.length >= 2) {
+        statNumberEls[0].textContent = totalReports.toLocaleString();
+        statNumberEls[1].textContent = `${resolutionRate}%`;
+    }
 }
 
 function renderReports(category) {
@@ -70,4 +97,79 @@ function renderReports(category) {
 
         reportsGrid.appendChild(card);
     });
+}
+
+// Load Top Citizens Leaderboard
+function loadTopCitizens() {
+    const rankingList = document.getElementById('rankingList');
+    if (!rankingList) return;
+
+    db.collection('reportes')
+        .where('status', 'in', ['resuelto', 'aprobado'])
+        .get()
+        .then((querySnapshot) => {
+            // Count reports per user
+            const userCounts = {};
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const userId = data.authorId || data.userId;
+                const userName = data.authorName || 'Usuario';
+
+                if (userId) {
+                    if (!userCounts[userId]) {
+                        userCounts[userId] = {
+                            name: userName,
+                            count: 0
+                        };
+                    }
+                    userCounts[userId].count++;
+                }
+            });
+
+            // Convert to array and sort
+            const topUsers = Object.entries(userCounts)
+                .map(([userId, data]) => ({
+                    userId,
+                    name: data.name,
+                    count: data.count
+                }))
+                .sort((a, b) => b.count - a.count)
+                .slice(0, 3); // Top 3
+
+            // Render leaderboard
+            if (topUsers.length === 0) {
+                rankingList.innerHTML = `
+                    <li>
+                        <div style="text-align: center; color: #64748b; padding: 20px 0;">
+                            No hay datos disponibles
+                        </div>
+                    </li>
+                `;
+                return;
+            }
+
+            rankingList.innerHTML = '';
+            topUsers.forEach((user, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span class="rank">${index + 1}</span>
+                    <div class="user-info">
+                        <span class="name">${user.name}</span>
+                        <span class="points">${user.count} reportes</span>
+                    </div>
+                `;
+                rankingList.appendChild(li);
+            });
+        })
+        .catch((error) => {
+            console.error("Error cargando top ciudadanos:", error);
+            rankingList.innerHTML = `
+                <li>
+                    <div style="text-align: center; color: #e74c3c; padding: 20px 0; font-size: 0.9rem;">
+                        Error al cargar ranking
+                    </div>
+                </li>
+            `;
+        });
 }

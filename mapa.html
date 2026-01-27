@@ -24,10 +24,32 @@
             <a href="mapa.html" class="active">Mapa</a>
             <a href="juegos.html">Juegos</a>
 
-            <a href="login.html" id="btnLogin" class="btn-login">Iniciar sesión</a>
+            <div class="auth-buttons">
+                <!-- Login Button (Default Visible) -->
+                <a href="login.html" id="btnLogin" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+                </a>
 
-            <span id="userGreeting" class="user-greeting"></span>
-            <button id="logoutBtn" class="btn-logout" style="display:none;">Cerrar sesión</button>
+                <!-- User Dropdown (Hidden initially) -->
+                <div id="userMenu" class="user-menu-container">
+                    <div class="user-avatar-btn">
+                        <div class="user-avatar-initial" id="userInitial">U</div>
+                        <span class="user-name-display" id="userGreeting">Usuario</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px; color: #64748b;"></i>
+                    </div>
+
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item" id="adminLink" style="display:none;">
+                            <i class="fas fa-chart-line"></i> Dashboard
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <button id="btnLogout" class="dropdown-item text-danger"
+                            style="width: 100%; border: none; background: none; cursor: pointer;">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
         </nav>
     </header>
 

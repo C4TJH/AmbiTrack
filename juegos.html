@@ -11,9 +11,8 @@
     <style>
         .games-hero {
             height: 60vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
-            background-size: cover;
-            background-position: center;
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -23,13 +22,56 @@
             padding: 20px;
         }
 
-        .games-hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
+        .hero-carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
         }
 
-        .games-hero p {
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: #2ecc71;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
             font-size: 1.5rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .games-grid {
@@ -42,15 +84,22 @@
         }
 
         .game-card {
-            background: white;
-            border-radius: 15px;
+            background-color: #ffffff;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f0fdf4' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .game-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #bbf7d0;
         }
 
         .game-img {
@@ -404,43 +453,84 @@
             <a href="mapa.html">Mapa</a>
             <a href="juegos.html" class="active">Juegos</a>
 
-            <a href="login.html" id="btnLogin" class="btn-login">Iniciar sesión</a>
-            <span id="userGreeting" class="user-greeting"></span>
-            <button id="btnLogout" class="btn-logout" style="display:none;">Cerrar sesión</button>
+            <div class="auth-buttons">
+                <!-- Login Button (Default Visible) -->
+                <a href="login.html" id="btnLogin" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+                </a>
+
+                <!-- User Dropdown (Hidden initially) -->
+                <div id="userMenu" class="user-menu-container">
+                    <div class="user-avatar-btn">
+                        <div class="user-avatar-initial" id="userInitial">U</div>
+                        <span class="user-name-display" id="userGreeting">Usuario</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px; color: #64748b;"></i>
+                    </div>
+
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item" id="adminLink" style="display:none;">
+                            <i class="fas fa-chart-line"></i> Dashboard
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <button id="btnLogout" class="dropdown-item text-danger"
+                            style="width: 100%; border: none; background: none; cursor: pointer;">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
         </nav>
     </header>
 
     <section class="games-hero">
-        <h1>Zona de Juegos</h1>
-        <p>Aprende sobre el medio ambiente mientras te diviertes.</p>
+        <div class="hero-carousel" id="heroCarousel">
+            <div class="carousel-slide active"
+                style="background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');">
+            </div>
+            <div class="carousel-slide"
+                style="background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');">
+            </div>
+            <div class="carousel-slide"
+                style="background-image: url('https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');">
+            </div>
+            <div class="hero-overlay"></div>
+        </div>
+
+        <div class="hero-content">
+            <h1>Zona de Juegos</h1>
+            <p>Aprende sobre el medio ambiente mientras te diviertes.</p>
+        </div>
     </section>
 
-    <section class="games-grid">
-        <div class="game-card">
-            <div class="game-img quiz">🧠</div>
-            <div class="game-content">
-                <h3>Quiz Ambiental</h3>
-                <p>Pon a prueba tus conocimientos sobre el medio ambiente con preguntas desafiantes.</p>
-                <button class="btn-play" onclick="openGame('quiz')">Jugar</button>
+    <!-- WRAPPER FOR FULL WIDTH BACKGROUND -->
+    <div class="games-grid-wrapper" style="width: 100%; background-color: #ffffff;">
+        <section class="games-grid">
+            <div class="game-card">
+                <div class="game-img quiz">🧠</div>
+                <div class="game-content">
+                    <h3>Quiz Ambiental</h3>
+                    <p>Pon a prueba tus conocimientos sobre el medio ambiente con preguntas desafiantes.</p>
+                    <button class="btn-play" onclick="openGame('quiz')">Jugar</button>
+                </div>
             </div>
-        </div>
-        <div class="game-card">
-            <div class="game-img recycling">♻️</div>
-            <div class="game-content">
-                <h3>Clasificador de Reciclaje</h3>
-                <p>Aprende a separar los residuos correctamente clasificándolos en el contenedor correcto.</p>
-                <button class="btn-play" onclick="openGame('recycling')">Jugar</button>
+            <div class="game-card">
+                <div class="game-img recycling">♻️</div>
+                <div class="game-content">
+                    <h3>Clasificador de Reciclaje</h3>
+                    <p>Aprende a separar los residuos correctamente clasificándolos en el contenedor correcto.</p>
+                    <button class="btn-play" onclick="openGame('recycling')">Jugar</button>
+                </div>
             </div>
-        </div>
-        <div class="game-card">
-            <div class="game-img water">💧</div>
-            <div class="game-content">
-                <h3>Tips para Ahorrar Agua</h3>
-                <p>Descubre consejos prácticos para reducir tu consumo de agua y cuidar el planeta.</p>
-                <button class="btn-play" onclick="openGame('water')">Jugar</button>
+            <div class="game-card">
+                <div class="game-img water">💧</div>
+                <div class="game-content">
+                    <h3>Tips para Ahorrar Agua</h3>
+                    <p>Descubre consejos prácticos para reducir tu consumo de agua y cuidar el planeta.</p>
+                    <button class="btn-play" onclick="openGame('water')">Jugar</button>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <!-- Game Modal -->
     <div id="gameModal" class="game-modal">
@@ -490,21 +580,62 @@
         </div>
     </div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">AmbiTrack</div>
-            <div class="social-icons">
-                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" target="_blank" title="X (Twitter)">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
-                </a>
-                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    <!-- FOOTER -->
+    <footer class="rich-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">AmbiTrack</div>
+                <p>Plataforma líder en monitoreo ambiental ciudadano. Juntos construimos un futuro más sostenible.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="X (Twitter)">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"
+                            style="fill: #ffffff; width: 16px; height: 16px; transition: fill 0.3s;"
+                            onmouseover="this.style.fill='#2ecc71'" onmouseout="this.style.fill='#ffffff'">
+                            <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                            <path
+                                d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+                        </svg>
+                    </a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
             </div>
-            <p>&copy; 2025 AmbiTrack. Todos los derechos reservados.</p>
+
+            <div class="footer-column">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="reportar.html">Reportar Incidente</a></li>
+                    <li><a href="mapa.html">Mapa en Tiempo Real</a></li>
+                    <li><a href="ver_reportes.html">Explorar Reportes</a></li>
+                    <li><a href="juegos.html">Zona de Juegos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Recursos</h4>
+                <ul>
+                    <li><a href="#">Centro de Ayuda</a></li>
+                    <li><a href="#">Guía de Reciclaje</a></li>
+                    <li><a href="#">Estadísticas Ambientales</a></li>
+                    <li><a href="#">Términos de Uso</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Boletín Informativo</h4>
+                <p>Recibe noticias y actualizaciones ambientales semanalmente.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Tu correo electrónico">
+                    <button type="button"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 AmbiTrack. Hecho con 💚 por el equipo de desarrollo.</p>
         </div>
     </footer>
 

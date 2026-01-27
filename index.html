@@ -4,14 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AmbiTrack - Inicio</title>
+    <title>AmbiTrack - Monitoreo Ambiental Ciudadano</title>
 
     <!-- Favicon -->
     <link rel="icon" href="icons/favicon.ico">
-    <!-- RUTA CORRECTA -->
+
+    <!-- CSS Dependencies -->
     <link rel="stylesheet" href="assets/css/index.css">
-    <!-- FontAwesome para iconos Social (Updated to 6.4.0) actualizado para icono de x -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body>
@@ -29,51 +32,120 @@
             <a href="mapa.html">Mapa</a>
             <a href="juegos.html">Juegos</a>
 
-            <a href="login.html" id="btnLogin" class="btn-login">Iniciar sesión</a>
+            <div class="auth-buttons">
+                <!-- Login Button (Default Visible) -->
+                <a href="login.html" id="btnLogin" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+                </a>
 
-            <span id="userGreeting" class="user-greeting"></span>
-            <button id="btnLogout" class="btn-logout" style="display:none;">Cerrar sesión</button>
+                <!-- User Dropdown (Hidden initially) -->
+                <div id="userMenu" class="user-menu-container">
+                    <div class="user-avatar-btn">
+                        <div class="user-avatar-initial" id="userInitial">U</div>
+                        <span class="user-name-display" id="userGreeting">Usuario</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px; color: #64748b;"></i>
+                    </div>
+
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item" id="adminLink" style="display:none;">
+                            <i class="fas fa-chart-line"></i> Dashboard
+                        </a>
+                        <!-- <a href="perfil.html" class="dropdown-item">
+                            <i class="fas fa-user-circle"></i> Mi Perfil
+                        </a> -->
+                        <div class="dropdown-divider"></div>
+                        <button id="btnLogout" class="dropdown-item text-danger"
+                            style="width: 100%; border: none; background: none; cursor: pointer;">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
         </nav>
     </header>
 
-    <!-- CARRUSEL (Sin botones) -->
-    <div class="carousel-container">
-        <div class="carousel-slide active"
-            style="background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
-            <div class="overlay">
-                <h1>Reporta incidentes ambientales</h1>
-                <p>Ayuda a mantener tu comunidad limpia y segura.</p>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="hero-title">
+                Transformando comunidades,<br>
+                <span class="highlight-text">restaurando la naturaleza.</span>
+            </h1>
+            <p class="hero-subtitle">
+                Únete a la plataforma líder de monitoreo ambiental ciudadano. Reporta incidentes, visualiza cambios y sé
+                parte de la solución.
+            </p>
+            <div class="hero-buttons">
+                <a href="reportar.html" class="btn-hero primary">
+                    <i class="fas fa-camera"></i> Reportar Ahora
+                </a>
+                <a href="mapa.html" class="btn-hero secondary">
+                    <i class="fas fa-map-marked-alt"></i> Ver Mapa
+                </a>
             </div>
         </div>
-        <div class="carousel-slide"
-            style="background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
-            <div class="overlay">
-                <h1>Visualiza el impacto</h1>
-                <p>Explora el mapa de reportes en tiempo real.</p>
+
+        <!-- Scroll Down Indicator -->
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
             </div>
         </div>
-        <div class="carousel-slide"
-            style="background-image: url('https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
-            <div class="overlay">
-                <h1>Únete al cambio</h1>
-                <p>Juntos podemos hacer la diferencia.</p>
-            </div>
-        </div>
-    </div>
+    </section>
 
     <!-- TARJETAS INFORMATIVAS -->
-    <section class="info-cards">
-        <div class="card">
-            <h3>📷 Reporta</h3>
-            <p>Toma una foto y describe el problema ambiental en tu zona.</p>
-        </div>
-        <div class="card">
-            <h3>🗺️ Visualiza</h3>
-            <p>Consulta el mapa interactivo para ver los reportes de otros usuarios.</p>
-        </div>
-        <div class="card">
-            <h3>🤝 Colabora</h3>
-            <p>Ayuda a las autoridades y vecinos a identificar focos de contaminación.</p>
+    <!-- FEATURES ZIG-ZAG -->
+    <section class="features-section">
+        <div class="feature-container">
+            <div class="feature-row" data-aos="fade-right">
+                <div class="feature-text">
+                    <h2><i class="fas fa-search-location"></i> Reportes Georreferenciados</h2>
+                    <p>
+                        Cada reporte incluye coordenadas precisas y evidencia fotográfica.
+                        Esto permite a las autoridades localizar y atender los incidentes con mayor eficiencia.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Ubicación exacta con GPS.</li>
+                        <li><i class="fas fa-check-circle"></i> Carga de fotos en alta resolución.</li>
+                        <li><i class="fas fa-check-circle"></i> Categorización automática.</li>
+                    </ul>
+                </div>
+                <div class="feature-image"
+                    style="background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');">
+                </div>
+            </div>
+
+            <div class="feature-row reverse" data-aos="fade-left">
+                <div class="feature-text">
+                    <h2><i class="fas fa-chart-pie"></i> Panel de Control Ciudadano</h2>
+                    <p>
+                        Visualiza el estado de los reportes en tiempo real.
+                        Nuestra plataforma transparente fomenta la rendición de cuentas y la participación comunitaria.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Mapa interactivo de calor.</li>
+                        <li><i class="fas fa-check-circle"></i> Estadísticas de resolución.</li>
+                        <li><i class="fas fa-check-circle"></i> Historial público de incidentes.</li>
+                    </ul>
+                </div>
+                <div class="feature-image"
+                    style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');">
+                </div>
+            </div>
+
+            <div class="feature-row" data-aos="fade-right">
+                <div class="feature-text">
+                    <h2><i class="fas fa-users"></i> Comunidad Activa</h2>
+                    <p>
+                        AmbiTrack no es solo una herramienta, es un movimiento.
+                        Únete a miles de ciudadanos comprometidos con el cuidado del medio ambiente.
+                    </p>
+                </div>
+                <div class="feature-image"
+                    style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');">
+                </div>
+            </div>
         </div>
     </section>
 
@@ -89,12 +161,12 @@
 
             <div class="about-grid">
                 <div class="about-item">
-                    <h3>🎯 Objetivo</h3>
+                    <h3><i class="fas fa-bullseye"></i> Objetivo</h3>
                     <p>Facilitar el monitoreo ambiental en comunidades, instituciones educativas y administraciones
                         locales para la recolección de datos precisos y la identificación de tendencias.</p>
                 </div>
                 <div class="about-item">
-                    <h3>🚀 Beneficios</h3>
+                    <h3><i class="fas fa-rocket"></i> Beneficios</h3>
                     <ul>
                         <li>Acceso rápido desde cualquier dispositivo</li>
                         <li>Reportes geolocalizados confiables</li>
@@ -102,33 +174,25 @@
                         <li>Fomento de la participación ciudadana</li>
                     </ul>
                 </div>
-                <div class="about-item">
-                    <h3>🛠️ Tecnologías</h3>
-                    <p>Construido con herramientas modernas y escalables:</p>
-                    <div class="tech-tags">
-                        <span>HTML5</span>
-                        <span>CSS3</span>
-                        <span>JavaScript</span>
-                        <span>Google Maps</span>
-                        <span>Firebase</span>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
+    </div>
+    </div>
+    </section>
 
     <!-- IMPACTO EN NÚMEROS -->
-    <section class="stats-section">
+    <section class="stats-section" data-aos="fade-up">
         <div class="stat-item">
-            <h2>500+</h2>
+            <h2 id="statReports">0+</h2>
             <p>Reportes Enviados</p>
         </div>
         <div class="stat-item">
-            <h2>50</h2>
+            <h2 id="statZones">0+</h2>
             <p>Zonas Recuperadas</p>
         </div>
         <div class="stat-item">
-            <h2>1000+</h2>
+            <h2 id="statUsers">0+</h2>
             <p>Usuarios Activos</p>
         </div>
     </section>
@@ -155,29 +219,181 @@
         </div>
     </section>
 
+    <!-- TESTIMONIALS -->
+    <section class="testimonials-section" data-aos="fade-up">
+        <h2>Lo que dicen nuestros usuarios</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="user-info">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
+                    <div>
+                        <h4>María González</h4>
+                        <span>Líder Comunitaria</span>
+                    </div>
+                </div>
+                <p>"AmbiTrack ha cambiado la forma en que organizamos nuestras limpiezas barriales. ¡Es increíble ver el
+                    mapa llenarse de zonas verdes!"</p>
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="user-info">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                    <div>
+                        <h4>Carlos Ruiz</h4>
+                        <span>Estudiante</span>
+                    </div>
+                </div>
+                <p>"Reportar es súper fácil y rápido. Me siento útil sabiendo que mis reportes ayudan a identificar
+                    problemas reales."</p>
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="user-info">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User">
+                    <div>
+                        <h4>Ana López</h4>
+                        <span>Vecina Vigilante</span>
+                    </div>
+                </div>
+                <p>"La respuesta de las autoridades ha mejorado desde que usamos la plataforma. La transparencia de los
+                    datos es clave."</p>
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="far fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ ACCORDION -->
+    <section class="faq-section" data-aos="fade-up">
+        <div class="faq-container">
+            <h2>Preguntas Frecuentes</h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        ¿Es necesario registrarse para reportar? <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Sí, el registro nos ayuda a validar la veracidad de los reportes y evitar el spam. Es rápido
+                            y gratuito.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        ¿Qué tipos de incidentes puedo reportar? <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Puedes reportar acumulación de basura, contaminación de agua, contaminación del aire,
+                            deforestación, y más.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        ¿Cómo sé si mi reporte fue atendido? <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Recibirás notificaciones en tu perfil y el estado del reporte cambiará a "Resuelto" en el
+                            mapa público.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEEDBACK SECTION -->
+    <section class="feedback-section">
+        <div class="feedback-container" data-aos="fade-up">
+            <h2>Tu Opinión Importa</h2>
+            <p>¿Tienes alguna sugerencia para mejorar nuestra plataforma? ¡Queremos escucharte!</p>
+
+            <form id="feedbackForm" class="feedback-form">
+                <div class="form-group">
+                    <input type="text" id="fbName" placeholder="Tu Nombre (Opcional)" class="form-input">
+                </div>
+                <!-- <div class="form-group">
+                    <input type="email" id="fbEmail" placeholder="Tu Correo (Opcional)" class="form-input">
+                </div> -->
+                <div class="form-group">
+                    <select id="fbRating" class="form-input" required>
+                        <option value="" disabled selected>Calificación del servicio</option>
+                        <option value="5">Excelente (5 Estrellas)</option>
+                        <option value="4">Muy Bueno (4 Estrellas)</option>
+                        <option value="3">Regular (3 Estrellas)</option>
+                        <option value="2">Malo (2 Estrellas)</option>
+                        <option value="1">Pésimo (1 Estrella)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="fbMessage" rows="4" placeholder="Escribe tu mensaje aquí..." class="form-input"
+                        required></textarea>
+                </div>
+                <button type="submit" class="btn-feedback">Enviar Opinión</button>
+            </form>
+        </div>
+    </section>
+
     <!-- CTA -->
-    <section class="cta-section">
+    <section class="cta-section" data-aos="zoom-in">
         <h2>¿Listo para ayudar?</h2>
         <p>Tu reporte puede hacer la diferencia.</p>
         <a href="reportar.html" class="btn-cta-large">Empezar a Reportar</a>
     </section>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">AmbiTrack</div>
-            <div class="social-icons">
-                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" target="_blank" title="X (Twitter)">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
-                </a>
-                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    <footer class="rich-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">AmbiTrack</div>
+                <p>Plataforma líder en monitoreo ambiental ciudadano. Juntos construimos un futuro más sostenible.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
             </div>
-            <p>&copy; 2025 AmbiTrack. Todos los derechos reservados.</p>
+
+            <div class="footer-column">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="reportar.html">Reportar Incidente</a></li>
+                    <li><a href="mapa.html">Mapa en Tiempo Real</a></li>
+                    <li><a href="ver_reportes.html">Explorar Reportes</a></li>
+                    <li><a href="juegos.html">Zona de Juegos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Recursos</h4>
+                <ul>
+                    <li><a href="#">Centro de Ayuda</a></li>
+                    <li><a href="#">Guía de Reciclaje</a></li>
+                    <li><a href="#">Estadísticas Ambientales</a></li>
+                    <li><a href="#">Términos de Uso</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Boletín Informativo</h4>
+                <p>Recibe noticias y actualizaciones ambientales semanalmente.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Tu correo electrónico">
+                    <button type="button"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 AmbiTrack. Hecho con 💚 por el equipo de desarrollo.</p>
         </div>
     </footer>
 
@@ -188,8 +404,20 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
 
     <script src="assets/js/firebase-config.js"></script>
-    <script src="assets/js/carousel.js"></script>
+    <!-- Removed carousel.js as we replaced it -->
     <script src="assets/js/navbar.js"></script>
+    <script src="assets/js/stats.js"></script>
+    <script src="assets/js/feedback.js"></script>
+    <script src="assets/js/faq.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- AOS Animate On Scroll -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 
 </body>
 

@@ -10,7 +10,7 @@
     <title>Reportar incidente</title>
     <link rel="icon" href="icons/favicon.ico">
     <!-- FontAwesome para iconos del Footer -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -26,58 +26,176 @@
             <a href="mapa.html">Mapa</a>
             <a href="juegos.html">Juegos</a>
 
-            <a href="login.html" id="btnLogin" class="btn-login">Iniciar sesión</a>
+            <div class="auth-buttons">
+                <!-- Login Button (Default Visible) -->
+                <a href="login.html" id="btnLogin" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+                </a>
 
-            <span id="userGreeting" class="user-greeting"></span>
-            <button id="logoutBtn" class="btn-logout" style="display:none;">Cerrar sesión</button>
+                <!-- User Dropdown (Hidden initially) -->
+                <div id="userMenu" class="user-menu-container">
+                    <div class="user-avatar-btn">
+                        <div class="user-avatar-initial" id="userInitial">U</div>
+                        <span class="user-name-display" id="userGreeting">Usuario</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px; color: #64748b;"></i>
+                    </div>
+
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item" id="adminLink" style="display:none;">
+                            <i class="fas fa-chart-line"></i> Dashboard
+                        </a>
+                        <!-- <a href="perfil.html" class="dropdown-item">
+                            <i class="fas fa-user-circle"></i> Mi Perfil
+                        </a> -->
+                        <div class="dropdown-divider"></div>
+                        <button id="btnLogout" class="dropdown-item text-danger"
+                            style="width: 100%; border: none; background: none; cursor: pointer;">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
         </nav>
     </header>
 
-    <div class="main-content-wrapper">
-        <div class="container form-container">
-            <h1>Reportar Incidente</h1>
-            <p id="userInfo">Cargando usuario...</p>
+    <!-- Main Content: My Reports Dashboard -->
+    <div class="main-content-wrapper dashboard-wrapper">
 
-            <form id="reportForm">
-                <div class="form-group">
-                    <label for="titulo">Título del reporte</label>
-                    <input type="text" id="titulo" placeholder="Ej: Basura acumulada en el parque" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="categoria">Categoría</label>
-                    <select id="categoria" required>
-                        <option value="">Selecciona una categoría</option>
-                        <option value="basura">Basura / Residuos</option>
-                        <option value="aire">Calidad del Aire / Humo</option>
-                        <option value="ruido">Contaminación Acústica</option>
-                        <option value="visual">Contaminación Visual</option>
-                        <option value="agua">Contaminación del Agua</option>
-                        <option value="otros">Otros</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="descripcion">Descripción</label>
-                    <textarea id="descripcion" rows="4" placeholder="Describe el problema..." required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="foto">Evidencia fotográfica</label>
-                    <input type="file" id="foto" accept="image/*" required>
-                </div>
-
-                <p class="note"> Tu ubicación se adjuntará automáticamente al enviar.</p>
-
-                <button type="submit" class="btn-submit">Enviar Reporte</button>
-                <p id="statusMsg"></p>
-            </form>
+        <!-- Header Section -->
+        <div class="dashboard-header">
+            <div class="header-text">
+                <h1>Mis Reportes</h1>
+                <p>Crea, consulta y da seguimiento a los reportes ambientales que has enviado.</p>
+            </div>
+            <div class="header-actions">
+                <button id="btnNewReport" class="btn-primary">
+                    <i class="fas fa-plus-circle"></i> Nuevo Reporte
+                </button>
+            </div>
         </div>
 
-        <div class="container history-container" id="myReportsSection" style="display: none;">
-            <h2>Mis Reportes Anteriores</h2>
-            <div id="myReportsList" class="my-reports-list">
+        <!-- Filters Section -->
+        <div class="filters-panel">
+            <div class="filter-group">
+                <label><i class="fas fa-filter"></i> Estado:</label>
+                <select id="filterStatus">
+                    <option value="all">Todos</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="aprobado">En Proceso</option>
+                    <option value="resuelto">Resuelto</option>
+                    <option value="rechazado">Rechazado</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label><i class="fas fa-layer-group"></i> Categoría:</label>
+                <select id="filterCategory">
+                    <option value="all">Todas</option>
+                    <option value="basura">Basura</option>
+                    <option value="aire">Aire</option>
+                    <option value="ruido">Ruido</option>
+                    <option value="agua">Agua</option>
+                    <option value="visual">Visual</option>
+                    <option value="otros">Otros</option>
+                </select>
+            </div>
+            <div class="filter-actions">
+                <!-- <button id="btnApplyFilters" class="btn-secondary">Aplicar</button> -->
+                <button id="btnClearFilters" class="btn-outline">Limpiar</button>
+            </div>
+        </div>
+
+        <!-- Reports List Section -->
+        <div id="myReportsSection" class="reports-container">
+            <!-- Loading State -->
+            <div id="loadingState" class="state-message">
+                <i class="fas fa-spinner fa-spin"></i>
                 <p>Cargando tus reportes...</p>
+            </div>
+
+            <!-- Empty State (Hidden by default) -->
+            <div id="emptyState" class="state-message" style="display: none;">
+                <i class="fas fa-clipboard-list"></i>
+                <h3>No tienes reportes activos</h3>
+                <p>¡Es un buen momento para comenzar! Reporta un problema en tu comunidad.</p>
+                <button class="btn-primary" onclick="document.getElementById('btnNewReport').click()">Crear mi primer
+                    reporte</button>
+            </div>
+
+            <!-- Grid -->
+            <div id="myReportsList" class="reports-grid">
+                <!-- Cards will be injected here by JS -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL: Create New Report -->
+    <div id="createReportModal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" id="closeCreateModal">&times;</span>
+            <div class="modal-header">
+                <h2><i class="fas fa-edit"></i> Nuevo Reporte</h2>
+                <p class="modal-subtitle">Tu reporte ayuda a mejorar el entorno.</p>
+            </div>
+
+            <div class="modal-body">
+                <form id="reportForm">
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="titulo">Título del reporte *</label>
+                            <input type="text" id="titulo" placeholder="Ej: Basura en parque central" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="categoria">Categoría *</label>
+                            <select id="categoria" required>
+                                <option value="">Selecciona...</option>
+                                <option value="basura">Basura / Residuos</option>
+                                <option value="aire">Calidad del Aire</option>
+                                <option value="ruido">Ruido</option>
+                                <option value="agua">Agua</option>
+                                <option value="visual">Contaminación Visual</option>
+                                <option value="otros">Otros</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripción detallada *</label>
+                        <textarea id="descripcion" rows="4" placeholder="Describe el problema, hora aproximada, etc..."
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ubicación *</label>
+                        <div class="location-control">
+                            <input type="text" id="ubicacion" placeholder="Dirección o referencia (Opcional)"
+                                class="location-input">
+                            <button type="button" id="btnGetLocation" class="btn-location"
+                                title="Usar mi ubicación actual">
+                                <i class="fas fa-map-marker-alt"></i> GPS
+                            </button>
+                        </div>
+                        <small class="form-text text-muted">Se capturarán tus coordenadas automáticamente al enviar si
+                            usas GPS.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Evidencia (Foto) *</label>
+                        <div class="file-upload-wrapper" id="dropZone">
+                            <input type="file" id="foto" accept="image/*" required>
+                            <div class="file-upload-preview">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Arrastra una foto o haz click aquí</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-outline" id="btnCancelCreate">Cancelar</button>
+                        <button type="submit" class="btn-submit">Enviar Reporte</button>
+                    </div>
+                    <p id="statusMsg" class="status-msg"></p>
+                </form>
             </div>
         </div>
     </div>
@@ -110,21 +228,53 @@
     <script src="assets/js/navbar.js"></script>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">AmbiTrack</div>
-            <div class="social-icons">
-                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" target="_blank" title="X (Twitter)">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
-                </a>
-                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    <footer class="rich-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">AmbiTrack</div>
+                <p>Plataforma líder en monitoreo ambiental ciudadano. Juntos construimos un futuro más sostenible.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
             </div>
-            <p>&copy; 2025 AmbiTrack. Todos los derechos reservados.</p>
+
+            <div class="footer-column">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="reportar.html">Reportar Incidente</a></li>
+                    <li><a href="mapa.html">Mapa en Tiempo Real</a></li>
+                    <li><a href="ver_reportes.html">Explorar Reportes</a></li>
+                    <li><a href="juegos.html">Zona de Juegos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Recursos</h4>
+                <ul>
+                    <li><a href="#">Centro de Ayuda</a></li>
+                    <li><a href="#">Guía de Reciclaje</a></li>
+                    <li><a href="#">Estadísticas Ambientales</a></li>
+                    <li><a href="#">Términos de Uso</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Boletín Informativo</h4>
+                <p>Recibe noticias y actualizaciones ambientales semanalmente.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Tu correo electrónico">
+                    <button type="button"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 AmbiTrack. Hecho con 💚 por el equipo de desarrollo.</p>
         </div>
     </footer>
 </body>

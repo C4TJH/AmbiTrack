@@ -8,23 +8,19 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    /* Unificar fuente */
     margin: 0;
-    /* imagen de fondo */
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    /* efecto de blur */
-    backdrop-filter: blur(5px);
+    /* Fondo sutil y decorativo */
+    background-color: #f0f2f5;
+    background-image: radial-gradient(#dfe6e9 1px, transparent 1px);
+    background-size: 20px 20px;
 
-    color: white;
-    /* color de texto por defecto para body */
+    color: var(--text-dark);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     padding-top: 80px;
-    /* Space for fixed navbar */
 }
 
 /* contenido principal */
@@ -45,20 +41,21 @@ body {
 }
 
 .header h1 {
-    color: white;
+    color: #2c3e50;
+    /* Texto oscuro para fondo claro */
     margin: 0;
     font-size: 2rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: none;
 }
 
 .user-info {
     font-weight: bold;
-    color: var(--secondary-color);
-    background: rgba(255, 255, 255, 0.9);
+    color: white;
+    background: var(--primary-color);
+    /* Fondo oscuro para contraste */
     padding: 10px 20px;
     border-radius: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* tarjetas de estadisticas */
@@ -70,13 +67,14 @@ body {
 }
 
 .stat-card {
-    background: rgba(255, 255, 255, 0.9);
+    background: #ffffff;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 20px rgba(0, 0, 0, 0.05);
+    /* Sombra "grounding" */
     text-align: center;
     transition: transform 0.3s;
-    backdrop-filter: blur(5px);
+    border: 1px solid #eef2f6;
 }
 
 .stat-card:hover {
